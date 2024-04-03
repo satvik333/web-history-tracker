@@ -43,7 +43,17 @@ function secondsToString(seconds,compressed=false){
   }
 };
 var allKeys, timeSpent, totalTimeSpent,sortedTimeList,topCount,topDataSet,topLabels,dateChart;
-var color = ["rgba(255, 0, 0, 1)","rgb(255, 51, 0)","rgb(255, 102, 0)","rgb(255, 153, 0)","rgb(255, 204, 0)","rgb(255, 255, 0)","rgb(204, 255, 0)","rgb(153, 255, 0)","rgb(102, 255, 0)","rgb(51, 255, 0)"];
+var color = ["#b91d47",
+              "#00aba9",
+              "#2b5797",
+              "#e8c3b9",
+              "#1e7145",
+              "#ffa500",
+              "#4169e1",
+              "#ff69b4",
+              "#ffd700",
+              "#8a2be2"
+            ];
 totalTimeSpent = 0;
 var today = getDateString(new Date())
 chrome.storage.local.get(today,function(storedItems){
@@ -106,8 +116,8 @@ chrome.storage.local.get(today,function(storedItems){
         legend:{
             display:true
         },
-        circumference : Math.PI,
-        rotation: Math.PI
+        circumference : 2 * Math.PI,
+        rotation: 2 * Math.PI
       }
   });
 
@@ -176,8 +186,8 @@ document.getElementById("dateSubmit").addEventListener('click',function(){
             legend:{
                 display:true
             },
-            circumference : Math.PI,
-            rotation: Math.PI
+            circumference : 2 * Math.PI,
+            rotation: 2 * Math.PI
           }
       });
       document.getElementById("statsRow").classList.remove("d-none");

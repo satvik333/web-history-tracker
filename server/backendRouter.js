@@ -8,7 +8,9 @@ router.use(express.json());
 
 router.get('/get-agent-history/:agent_id', async (req, res) => {
   try {
-    const [results] = await connection.execute('SELECT * FROM kap_track WHERE agent_id = ? AND is_active = 1', [req.params.agent_id]);
+    const [results] = req.query.date ?
+    await connection.execute('SELECT * FROM kap_track WHERE agent_id = ? AND date = ? AND is_active = 1', [req.params.agent_id, req.query.date]) :
+    await connection.execute('SELECT * FROM kap_track WHERE agent_id = ? AND is_active = 1', [req.params.agent_id]);
     res.status(200).json(results);
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
