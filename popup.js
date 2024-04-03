@@ -127,7 +127,6 @@ chrome.storage.local.get(null,function(items){
 document.getElementById("dateSubmit").addEventListener('click',function(){
   const calendar = document.getElementById("dateValue");
   if(calendar.value===""){
-    alert('HIIIIIIIIII')
     document.getElementById("tryAgain").innerText = "Invalid date! Please try again.";
     document.getElementById("tryAgain").classList.remove("d-none");
   }
