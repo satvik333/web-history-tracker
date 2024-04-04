@@ -126,7 +126,7 @@ function checkFocus(){
 }
 
 function storeDataInDB(presentDate, timeSoFar, website) {
-  const apiUrl = 'http://localhost:3001/kap-track/add-agent-history';
+  const apiUrl = 'http://node.kapture.cx/kap-track/add-agent-history';
   const requestBody = {
       "agent_id": "satvik.km@kapturecrm",
       "agent_name": "Satvik",
