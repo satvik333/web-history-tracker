@@ -1,3 +1,42 @@
+chrome.storage.local.get('agent_id', function(result) {
+  var agentId = result.agent_id;
+  if (agentId) {
+    document.getElementById("login-page").style.display = 'none';
+    document.getElementById("main-content").style.display = 'block';
+  }
+  else {
+    document.getElementById("login-page").style.display = 'block';
+    document.getElementById("main-content").style.display = 'none';
+  }
+});
+
+
+document.getElementById("loginButton").addEventListener("click", function() {
+  login();
+});
+
+function login() {
+    fetch('http://node.kapture.cx/kap-track/agent-login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      agent_id: $('#agentid').val(),
+      agent_name: $('#agentname').val()
+    }),
+  })
+  .then(response => {
+    chrome.storage.local.set({ 'agent_id': $('#agentid').val(), 'agent_name': $('#agentname').val() });
+    alert('Login Successful');
+    document.getElementById("main-content").style.display = 'block';
+    document.getElementById("login-page").style.display = 'none';
+  })
+  .catch(error => {
+    console.error('There was a problem', error);
+  });
+}
+
 function getDateString(nDate){
   let nDateDate=nDate.getDate();
   let nDateMonth=nDate.getMonth()+1;
@@ -213,60 +252,4 @@ document.getElementById("dateSubmit").addEventListener('click',function(){
      
     });
   }
-});
-
-function getDateTotalTime(storedObject,date){
-  let websiteLinks = Object.keys(storedObject[date]);
-  let noOfWebsites = websiteLinks.length;
-  let totalTime = 0;
-  for(let i = 0 ; i<noOfWebsites;i++){
-    totalTime+= storedObject[date][websiteLinks[i]];
-  }
-  return totalTime;
-};
-var monthNames = ["","Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
-document.getElementById('weekTab').addEventListener('click',function(){
-  chrome.storage.local.get(null,function(storedItems){
-    let datesList = Object.keys(storedItems);
-    let noOfDays = datesList.length>=7 ? 7 : datesList.length;
-    let timeEachDay= [];
-    let dateLabels = [];
-    let weeksTotalTime= 0;
-    datesList.sort();
-    for(let i = datesList.length-noOfDays;i<datesList.length;i++){
-      let month = parseInt(datesList[i][5]+datesList[i][6]);
-      let label = datesList[i][8]+datesList[i][9]+" "+monthNames[month];
-      //0123-56-89
-      dateLabels.push(label);
-      let dayTime = getDateTotalTime(storedItems,datesList[i]);
-      timeEachDay.push(dayTime);
-      weeksTotalTime += dayTime;
-    }
-    let weeklyAverage = parseInt(weeksTotalTime/noOfDays);
-    weeklyAverage = secondsToString(weeklyAverage);
-    let weeklyMax = Math.max.apply(Math,timeEachDay);
-    weeklyMax = secondsToString(weeklyMax);
-    document.getElementById("weekAvg").innerText = weeklyAverage;
-    document.getElementById("weekMax").innerText = weeklyMax;
-    const weeklyChart = document.getElementById("pastWeek");
-    let weeklyChartDetails = {};
-    weeklyChartDetails["type"]= 'line';
-    let dataObj= {};
-    dataObj["labels"] = dateLabels;
-    dataObj["datasets"] = [{label:"Time Spent",
-    fill:true,
-    backgroundColor: "rgba(75,192,192,0.4)",
-    lineTension:0.2,
-    borderColor: "rgba(75,192,192,0.8)",
-    pointBackgroundColor:"rgba(75,192,192,1)",
-    data: timeEachDay
-  }]
-    weeklyChartDetails["data"] = dataObj;
-    weeklyChartDetails["options"] = {
-      legend:{display:false},
-      title:{display:true,text:"Time Spent Online in the Recent Past"},
-      scales:{yAxes:[{scaleLabel:{display:true,labelString:"Time in Seconds"}}]}
-    };
-    new Chart(weeklyChart,weeklyChartDetails);
-  });
 });

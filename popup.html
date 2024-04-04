@@ -1,5 +1,38 @@
 <!DOCTYPE html>
 <html>
+    <div>
+      <h4 class="mt-2 text-center"><img src="icons/favi.png" height="30"> Kap-Track</h4>
+    </div>
+    <div id="login-page">
+      <head>
+        <title>Login</title>
+        <link rel="stylesheet" href="bootstrap-4.5.3-dist\css\bootstrap.min.css">
+      </head>
+      <body>
+          <div class="container">
+              <div class="row justify-content-center">
+                  <div class="col-md-6">
+                      <div class="card">
+                          <div class="card-header">Login</div>
+                          <div class="card-body">
+                              <form id="loginForm">
+                                  <div class="form-group">
+                                      <label for="agentname">Agent name:</label>
+                                      <input type="text" class="form-control" id="agentname" name="agentname" required>
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="agentid">Agent ID:</label>
+                                      <input type="text" class="form-control" id="agentid" name="agentid" required>
+                                  </div>
+                              </form>
+                              <button class="btn btn-primary" id="loginButton" onclick="login()">Login</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </body>
+    </div>
     <head>
         <title>Kap Track</title>
         <link rel="stylesheet" href="bootstrap-4.5.3-dist\css\bootstrap.min.css">
@@ -10,13 +43,9 @@
 
     </head>
     <body style="min-width: 400px;min-height: 350px;">
-        <div class="container">
-
-            <h4 class="mt-2 text-center"><img src="icons/icon48.png" height="35" class="navbar-brand">  Kap-Track</h4>
-        </div>
-        <div class=" small ">
+        <div class=" small " id="main-content">
           <ul class="nav nav-pills" id="tabs" role="tablist">
-            <li class="nav-item ml-auto">
+            <li class="nav-item" style="margin-left: 90px;">
               <a href="#todayPanel" class="nav-link active" id="todayTab" data-toggle="pill" role="tab">
               Today's Stats
               </a>
@@ -24,11 +53,6 @@
             <li class="nav-item">
               <a href="#dailyReport" class="nav-link " id="dailyTab" data-toggle="pill" role="tab" >
               Daily Report
-              </a>
-            </li>
-            <li class="nav-item mr-auto">
-              <a href="#oneWeek"  class="nav-link "  id="weekTab" data-toggle="pill" role="tab" >
-              Recent Summary 
               </a>
             </li>
           </ul>
@@ -108,25 +132,6 @@
                       </tbody>
                     </table>
               </div>
-              </div>
-            </div>
-            <div class="tab-pane fade " id="oneWeek" role="tabpanel">
-              <canvas id="pastWeek" width="100%" height="100%" class="my-3"></canvas>
-              <div class="container">
-                <div class="row mb-2">
-                  <div class="col">
-                    <div class="card">
-                      <div class="card-header bg-warning text-center font-weight-bold">Weekly Average</div>
-                      <div class="card-body text-center" id="weekAvg"></div>
-                    </div>
-                  </div>
-                  <div class="col">
-                    <div class="card">
-                      <div class="card-header bg-danger text-light text-center font-weight-bold">Maximum Time </div>
-                      <div class="card-body text-center" id="weekMax"></div>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
             </div>

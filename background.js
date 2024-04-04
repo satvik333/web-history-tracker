@@ -125,32 +125,53 @@ function checkFocus(){
   });
 }
 
-function storeDataInDB(presentDate, timeSoFar, website) {
-  const apiUrl = 'http://node.kapture.cx/kap-track/add-agent-history';
-  const requestBody = {
-      "agent_id": "satvik.km@kapturecrm",
-      "agent_name": "Satvik",
+async function getAgentData() {
+  try {
+    const [agentIdResult, agentNameResult] = await Promise.all([
+      new Promise((resolve, reject) => {
+        chrome.storage.local.get('agent_id', function(result) {
+          resolve(result.agent_id);
+        });
+      }),
+      new Promise((resolve, reject) => {
+        chrome.storage.local.get('agent_name', function(result) {
+          resolve(result.agent_name);
+        });
+      })
+    ]);
+
+    return { agentId: agentIdResult, agentName: agentNameResult };
+  } catch (error) {
+    console.error('Error retrieving agent data:', error);
+    return { agentId: null, agentName: null };
+  }
+}
+
+async function storeDataInDB(presentDate, timeSoFar, website) {
+  try {
+    const { agentId, agentName } = await getAgentData();
+
+    const apiUrl = 'http://node.kapture.cx/kap-track/add-agent-history';
+    const requestBody = {
+      "agent_id": agentId,
+      "agent_name": agentName,
       "website_url": website,
       "active_time": timeSoFar,
       "date": presentDate
-  };
-  fetch(apiUrl, {
+    };
+
+    const response = await fetch(apiUrl, {
       method: 'POST',
       headers: {
-          'Content-Type': 'application/json'
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify(requestBody)
-  })
-      .then(response => {
-          if (!response.ok) {
-              throw new Error('Network response was not ok');
-          }
-          return response.json();
-      })
-      .then(data => {
-          console.log('API response:', data);
-      })
-      .catch(error => {
-          console.error('Error:', error);
-      });
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
 }
