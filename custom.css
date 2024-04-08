@@ -1,46 +1,181 @@
-#todayTab,#dailyTab,#weekTab{
-    background-color: rgba(114,106,149,0.3);
-    color:black;
+body {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  #todayTab,
+  #dailyTab,
+  #weekTab {
+    background-color: #ed2b41;
+    color: white;
     transition: 1s;
-}
-
-#todayTab:hover{
-    background-color: rgba(53,31,57,0.5);
-}
-#dailyTab:hover{
-    background-color: rgba(53,31,57,0.5);
-}
-#weekTab:hover{
-    background-color: rgba(53,31,57,0.5);
-}
-
-.nav-link.active{
-    background-color: rgba(53,31,57,0.75) !important;
+    font-size: 13px;
+  }
+  
+  .mainContent {
+    display: none;
+  }
+  
+  #todayTab:hover {
+    background-color: #ed2b01;
+  }
+  #dailyTab:hover {
+    background-color: #ed2b01;
+  }
+  #weekTab:hover {
+    background-color: #ed2b01;
+  }
+  
+  .nav-link.active {
+    background-color: #ed2b01 !important;
     color: white !important;
-}
-
-#detailBtn,#detailBtn2{
-    background-color: #719fb0;
-    color:#212529;
+  }
+  
+  #detailBtn,
+  #detailBtn2 {
+    background-color: #ed2b41;
+    color: white;
     transition: 1s;
-}
-
-#detailBtn:hover,#detailBtn2:hover{
-    background-color: #0d2e3a;
-    color:white;
-}
-
-.card-header{
-    background-color: #719fb0 ;
-}
-
-#dateSubmit{
-    background-color: #719fb0;
-    color:#212529;
+  }
+  
+  #detailBtn:hover,
+  #detailBtn2:hover {
+    background-color: #ed2b01;
+    color: white;
+  }
+  
+  .card-header {
+    background-color: #ed2b41;
+    color: white;
+  }
+  
+  #dateSubmit {
+    background-color: #ed2b41;
+    color: white;
     transition: 1s;
-}
-
-#dateSubmit:hover{
-    background-color: #0d2e3a;
-    color:white;
-}
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  
+  #dateSubmit:hover {
+    background-color: #ed2b01;
+    color: white;
+  }
+  
+  .margin-right {
+    margin-right: 10px;
+  }
+  
+  .signInContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 40px;
+    margin-left: 20px;
+  }
+  
+  .signInContainer h5 {
+    margin-top: 10px;
+  }
+  
+  .signInContainer input {
+    height: 30px;
+    border: none;
+    width: 90%;
+    border: 1px solid black;
+  }
+  
+  #signin-btn {
+    width: 90%;
+    height: 30px;
+    background-color: #ed2b41;
+    color: white;
+    border: none;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .details-tab {
+    width: 90%;
+    height: 110px;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 25px auto 25px auto;
+    border-radius: 10px;
+  }
+  
+  #log-out {
+    height: 30px;
+    width: 120px;
+    border: none;
+    background-color: #5bb55c;
+    color: white;
+    margin-left: 35%;
+    margin-top: 10px;
+  }
+  
+  .activity-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  
+  .input-field {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .input-field p {
+    margin-top: 15px;
+  }
+  
+  .warning {
+    font-size: 12px;
+    color: #f04a5e;
+    margin-top: -15px;
+  }
+  
+  #prod-hours-container {
+    color: green;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  #prod-hours {
+    margin-left: 60px;
+  }
+  
+  button {
+    border-radius: 10px;
+  }
+  
+  .analytics-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  .second-anaytics-tab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  
+  .detail-btn {
+    margin-left: 120px;
+  }

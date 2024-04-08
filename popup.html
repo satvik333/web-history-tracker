@@ -1,75 +1,90 @@
 <!DOCTYPE html>
 <html>
-    <div>
-      <h4 class="mt-2 text-center"><img src="icons/favi.png" height="30"> Kap-Track</h4>
-    </div>
-    <div id="login-page">
-      <head>
-        <title>Login</title>
-        <link rel="stylesheet" href="bootstrap-4.5.3-dist\css\bootstrap.min.css">
-      </head>
-      <body>
-          <div class="container">
-              <div class="row justify-content-center">
-                  <div class="col-md-6">
-                      <div class="card">
-                          <div class="card-header">Login</div>
-                          <div class="card-body">
-                              <form id="loginForm">
-                                  <div class="form-group">
-                                      <label for="agentname">Agent name:</label>
-                                      <input type="text" class="form-control" id="agentname" name="agentname" required>
-                                  </div>
-                                  <div class="form-group">
-                                      <label for="agentid">Agent ID:</label>
-                                      <input type="text" class="form-control" id="agentid" name="agentid" required>
-                                  </div>
-                              </form>
-                              <button class="btn btn-primary" id="loginButton" onclick="login()">Login</button>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </body>
-    </div>
     <head>
-        <title>Kap Track</title>
+        <title>Web Time Tracker</title>
         <link rel="stylesheet" href="bootstrap-4.5.3-dist\css\bootstrap.min.css">
         <link rel="stylesheet" href="custom.css">
         <script src="jquery-3.5.1.min.js"></script>
         <script src="bootstrap-4.5.3-dist\js\bootstrap.min.js"></script>
         <script src="Chart.min.js"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 
     </head>
     <body style="min-width: 400px;min-height: 350px;">
-        <div class=" small " id="main-content">
+        <div class="container">
+          <!-- heading -->
+            <h4 class="mt-2 text-center"><img src="icons/icon48.png" height="35" class="navbar-brand">  Kaptrack Extension</h4>
+              <!-- heading -->
+        </div>
+
+        <div class="details-tab">
+          <button id="log-out">Logout</button>
+          <div class="activity-toggle">
+            <div class="input-field">
+              <p>Activate Extension : </p>
+              <input type="checkbox" id="activation-checkbox">
+            </div>
+      
+            <p class="warning">*This feature will be strictly enabled between 10:00am - 07:00pm</p>
+          </div>
+        </div>
+
+
+        <div id="prod-hours-container"> <h6 id="prod-hours">Today's productive Time : <span id="productive-hours">0</span></h6></div>
+       
+
+        <div class="signInContainer">
+<h5>Agent Name</h5>
+<input type="text" id="agentname"/>
+<h5>Agent Id</h5>
+<input type="text" id="agentid"/>
+<button id="signin-btn">Sign up</button>
+        </div>
+
+        <div class=" small mainContent">
+
+
+          <!-- top buttons -->
           <ul class="nav nav-pills" id="tabs" role="tablist">
-            <li class="nav-item" style="margin-left: 90px;">
+            <li class="nav-item ml-auto margin-right">
               <a href="#todayPanel" class="nav-link active" id="todayTab" data-toggle="pill" role="tab">
               Today's Stats
               </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item margin-right">
               <a href="#dailyReport" class="nav-link " id="dailyTab" data-toggle="pill" role="tab" >
               Daily Report
               </a>
             </li>
+            <li class="nav-item mr-auto">
+              <a href="#oneWeek"  class="nav-link "  id="weekTab" data-toggle="pill" role="tab" >
+              Weekly Summary 
+              </a>
+            </li>
           </ul>
+          <!-- top buttons -->
+
+
           <div class="tab-content" id="tabContent">
+
+
+            <!-- first tab -->
             <div class="tab-pane fade show active" id="todayPanel" role="tabpanel">
               <div class="container text-center">
                 <canvas id="pie-chart" width="100%" height="100%" class="my-1"></canvas>
-                <div class="row">
-                  <div class="col align-self-center">
-                    <button class="btn my-3 "  id="detailBtn" data-toggle="collapse" data-target="#webListDiv"><span class="small font-weight-bold">See Detailed View</span></button>
-                  </div>
+                <div class="row analytics-tab" >
                   <div class="col">
                     <div class="card mb-2">
                       <div class="card-header font-weight-bold py-1">Total Time Spent</div>
                       <div class="card-body py-1"><span id="totalTimeToday"></span></div>
                     </div>
                   </div>
+                  <div class="col align-self-center">
+                    <button class="btn my-3 "  id="detailBtn" data-toggle="collapse" data-target="#webListDiv"><span class="small font-weight-bold">See Detailed View</span></button>
+                  </div>
+                 
                 </div>
                 <div class="collapse " id="webListDiv">
                     <table class="table table-hover " >
@@ -87,6 +102,10 @@
                 </div>
               </div>
             </div>
+              <!-- first tab -->
+
+
+                <!-- second tab -->
             <div class="tab-pane fade  " id="dailyReport" role="tabpanel">
               <div class="container">
                 <div class="row mt-2">
@@ -101,19 +120,21 @@
                   </div>
                 </div>
                 <div class="alert alert-danger d-none" id="tryAgain">
+                  <!-- Invalid date! Please try again. -->
                 </div>
                   <canvas id="differentDayChart" width="100%" height="100%" class="my-1"></canvas>
               </div>
               <div class="container">
-                <div class="row d-none" id="statsRow">
-                  <div class="col align-self-center">
-                    <button class="btn my-3 "  id="detailBtn2" data-toggle="collapse" data-target="#webListDiv2"><span class="small font-weight-bold">See Detailed View</span></button>
-                  </div>
+                <div class="row d-none second-anaytics-tab" id="statsRow">
+                  
                   <div class="col">
                     <div class="card mb-2">
                       <div class="card-header font-weight-bold py-1">Total Time Spent</div>
                       <div class="card-body py-1"><span id="totalTimeThatDay"></span></div>
                     </div>
+                  </div>
+                  <div class="col align-self-center ">
+                    <button class="btn my-3 detail-btn"  id="detailBtn2" data-toggle="collapse" data-target="#webListDiv2"><span class="small font-weight-bold">See Detailed View</span></button>
                   </div>
                 </div>
               </div>
@@ -134,6 +155,31 @@
               </div>
               </div>
             </div>
+
+            <!-- second tab -->
+
+
+            <!-- third tab -->
+            <div class="tab-pane fade " id="oneWeek" role="tabpanel">
+              <canvas id="pastWeek" width="100%" height="100%" class="my-3"></canvas>
+              <div class="container">
+                <div class="row mb-2">
+                  <div class="col">
+                    <div class="card">
+                      <div class="card-header text-center font-weight-bold">Weekly Average</div>
+                      <div class="card-body text-center" id="weekAvg"></div>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="card">
+                      <div class="card-header bg-danger text-light text-center font-weight-bold">Maximum Time </div>
+                      <div class="card-body text-center" id="weekMax"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+             <!-- third tab -->
             </div>
 
           </div>
